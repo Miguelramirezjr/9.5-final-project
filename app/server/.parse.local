@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Recipes": {
+      "applicationId": "D7H3Qc4xESJ3xjq4cMyC4IFT7yYbRuDYbRI2T2xN"
+    },
+    "_default": {
+      "link": "Recipes"
+    }
+  }
+}

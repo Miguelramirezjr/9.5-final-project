@@ -1,30 +1,32 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
+import BackboneMixin from '../mixins/backbone';
 import store from '../store';
 
 var App = React.createClass({
+
   propTypes: {
     children: React.PropTypes.node
   },
 
-  componentWillMount() {
-    store.getSession().on('change', this.forceUpdate.bind(this, null), this);
-  },
+  mixins: [BackboneMixin],
 
-  componentWillUnmount() {
-    store.getSession().off('change', null, this);
+  getModels() {
+    return {
+      session: store.getSession()
+    }
   },
 
   handleLogout(e) {
     e.preventDefault();
-    session.invalidate();
+    store.invalidateSession();
   },
 
   render() {
-    let session = store.getSession();
-    let loggedIn = session.isAuthenticated();
-    let currentUser = session.get('currentUser');
-    let username = (currentUser && currentUser.get('username')) || 'Me';
+    let session = this.state.session;
+    let loggedIn = session.isAuthenticated;
+    let currentUser = session.currentUser;
+    let username = (currentUser && currentUser.username) || 'Me';
 
     return (
       <div>
@@ -44,9 +46,10 @@ var App = React.createClass({
             <ul className="right">
               {loggedIn &&
               <li className="has-dropdown">
-                <a href="#">{username}</a>
+                <a>{username}</a>
                 <ul className="dropdown">
-                  <li><a href="#" onClick={this.handleLogout}>Logout</a></li>
+                  <li><Link to="/profile">Profile</Link></li>
+                  <li><a onClick={this.handleLogout}>Logout</a></li>
                 </ul>
               </li>
               }

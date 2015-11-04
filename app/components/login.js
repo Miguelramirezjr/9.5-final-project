@@ -22,9 +22,7 @@ const Login = React.createClass({
     let username = this.refs.email.value
     let password = this.refs.password.value
 
-    let session = store.getSession();
-
-    session.authenticate({username, password}).then((loggedIn) => {
+    store.authenticateSession({username, password}).then((loggedIn) => {
       if (!loggedIn)
         return this.setState({ error: true })
 

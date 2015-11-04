@@ -16,13 +16,8 @@ var Recipe = Backbone.Model.extend({
   defaults() {
     return {
       ingredients: [],
-      creator: {toJSON: function() {}}
+      creator: {}
     }
-  },
-
-  parse(response) {
-    response.creator = new User(_.omit(response.creator, '__type', 'className'), {parse: true});
-    return response;
   },
 
   toJSON(options) {
@@ -32,14 +27,23 @@ var Recipe = Backbone.Model.extend({
         creator: {
           "__type": "Pointer",
           "className": "_User",
-          "objectId": this.get('creator').id
+          "objectId": this.get('creator').objectId
         }
       });
-    // I'm using toJSON to get a simple object of attributes
+    } else { // I'm using toJSON to use with React
+      return _.clone(this.attributes);
+    }
+  },
+
+  save() {
+    let currentUser = store.getSession().currentUser;
+    if(currentUser) {
+      if(this.isNew()) {
+        this.set('creator', currentUser);
+      }
+      Backbone.Model.prototype.save.apply(this, arguments);
     } else {
-      return _.extend({}, this.attributes, {
-        creator: this.get('creator').toJSON()
-      });
+      return new Promise((_, reject) => reject("Invalid session"));
     }
   }
 });

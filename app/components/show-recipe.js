@@ -1,11 +1,11 @@
 import React from 'react';
 import store from '../store';
-import Recipe from '../models/recipe';
-import CommentsCollection from '../models/comments-collection';
 import { History } from 'react-router';
+import BackboneMixin from '../mixins/backbone';
+import RecipeForm from './recipe-form';
 
 const ShowRecipe = React.createClass({
-  mixins: [History],
+  mixins: [History, BackboneMixin],
 
   getInitialState() {
     return {
@@ -14,13 +14,14 @@ const ShowRecipe = React.createClass({
   },
 
   componentWillMount() {
-    let recipeId = this.props.params.id;
+    store.fetchCommentsForRecipe(this.props.params.id);
+  },
 
-    let recipe = new Recipe({objectId: recipeId});
-    recipe.fetch().then(() => this.setState({recipe: recipe}));
-
-    let comments = new CommentsCollection({recipeId: recipeId});
-    comments.fetch().then(() => this.setState({comments: comments}));
+  getModels() {
+    return {
+      recipe: store.getRecipe(this.props.params.id),
+      comments: store.getCommentsForRecipe(this.props.params.id)
+    };
   },
 
   handleEdit() {
@@ -29,51 +30,44 @@ const ShowRecipe = React.createClass({
     });
   },
 
-  handleSave(e) {
-    e.preventDefault();
-    this.state.recipe.set({
-      name: this.refs.name.value
-    });
-
-    this.state.recipe.save();
-
-    this.setState({
-      isEditing: false
-    });
-  },
-
   handleDestroy(e) {
     e.preventDefault();
     if(confirm("Are you sure?")){
-      this.state.recipe.destroy();
-      this.history.replaceState(null, '/');
+      store.destroyRecipe(this.state.recipe).then(() => {
+        this.history.replaceState(null, '/');
+      });
     }
   },
 
+  handleComment(e) {
+    e.preventDefault();
+    store.commentOnRecipe(this.props.params.id, this.refs.comment.value);
+    this.refs.comment.value = '';
+  },
+
   render() {
-    let recipe = (this.state.recipe && this.state.recipe.toJSON()) || {};
-    let comments = (this.state.comments && this.state.comments.toJSON()) || [];
-    let content;
+    let recipe = this.state.recipe;
+    let comments = this.state.comments;
+
     if(this.state.isEditing) {
-      content = (
-        <form>
-          <input type="text" defaultValue={recipe.name} ref="name" />
-          <button type="submit" onClick={this.handleSave}>Save</button>
-        </form>
-      );
+      return <RecipeForm initialRecipe={recipe} onSave={this.handleEdit} />;
     } else {
-      content = (
+      return (
         <div>
           <h1>{recipe.name}</h1>
           <button onClick={this.handleEdit}>Edit</button>
           <button className="alert" onClick={this.handleDestroy}>Destroy</button>
+
+          <form onSubmit={this.handleComment}>
+            <input type="text" ref="comment" placeholder="Comment" />
+          </form>
+
           <ul>
-            {comments.map((c) => <li key={c.objectId}>{c.text}</li> )}
+            {comments.map((c) => <li key={c.objectId}>{c.text}</li>)}
           </ul>
         </div>
       );
     }
-    return content;
   }
 });
 

@@ -1,5 +1,11 @@
-// @import 'bourbon';
-// @import 'neat';
+@import 'bourbon';
+@import 'neat';
 @import '~normalize.css/normalize.css';
 @import '~font-awesome/scss/font-awesome';
 @import 'foundation';
+
+body {
+    background-image: url(/images/sneaker_speaker-mock-5.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+};

@@ -3,31 +3,15 @@ import _ from 'underscore';
 import User from './user';
 import Recipe from './recipe';
 
-/*
-
-comments.create({
-  text: "Hello",
-  creator: store.getSession().get('currentUser'),
-  recipe: recipe
-});
-
- */
-
 const Comment = Backbone.Model.extend({
 
   idAttribute: 'objectId',
 
-  default() {
+  defaults() {
     return {
-      recipe: {toJSON: ()=>{}},
-      creator: {toJSON: ()=>{}}
-    };
-  },
-
-  parse(response) {
-    response.creator = new User(_.omit(response.creator, '__type', 'className'), {parse: true});
-    response.recipe = new Recipe(_.omit(response.recipe, '__type', 'className'), {parse: true});
-    return response;
+      recipe: {},
+      creator: {}
+    }
   },
 
   toJSON(options) {
@@ -38,23 +22,30 @@ const Comment = Backbone.Model.extend({
         recipe: {
           "__type": "Pointer",
           "className": "Recipe",
-          "objectId": this.get('recipe').id
+          "objectId": this.get('recipe').objectId
         },
         creator: {
           "__type": "Pointer",
           "className": "_User",
-          "objectId": this.get('creator').id
+          "objectId": this.get('creator').objectId
         }
       });
 
     // I'm using toJSON to get a simple object of attributes
     } else {
+      return _.clone(this.attributes);
+    }
+  },
 
-      return _.extend({}, this.attributes, {
-        recipe: this.get('recipe').toJSON(),
-        creator: this.get('creator').toJSON()
-      });
-
+  save() {
+    let currentUser = store.getSession().currentUser;
+    if(currentUser) {
+      if(this.isNew()) {
+        this.set('creator', currentUser);
+      }
+      Backbone.Model.prototype.save.apply(this, arguments);
+    } else {
+      return new Promise((_, reject) => reject("Invalid session"));
     }
   }
 });

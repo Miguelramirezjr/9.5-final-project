@@ -12,8 +12,8 @@ var CommentsCollection = Backbone.Collection.extend({
     });
   },
 
-  initialize(options) {
-    this.recipeId = options.recipeId;
+  initialize(models, options) {
+    this.recipeId = options && options.recipeId;
   },
 
   parse(response) {

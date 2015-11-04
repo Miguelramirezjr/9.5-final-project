@@ -14,17 +14,14 @@ const Session = Backbone.Model.extend({
         }).then((response) => {
           this.set('currentUser', new User(response));
           localStorage.setItem('parse-session-token', response.sessionToken);
-          this.trigger('authenticationSucceeded');
           return true;
         }, () => false);
       } else if (options.sessionToken) {
         // I'm authenticating with a sessionToken
         localStorage.setItem('parse-session-token', options.sessionToken);
-        var user = new User(options);
-        this.set('currentUser', user);
-        this.trigger('authenticationSucceeded');
-        return user.fetch().then(() => {
-          this.set('currentUser', user.clone());
+        this.set('currentUser', new User(options));
+        return $.ajax("https://api.parse.com/1/users/me").then((response) => {
+          this.set('currentUser', new User(response));
           return true;
         }, () => false);
       } else {
@@ -46,12 +43,15 @@ const Session = Backbone.Model.extend({
 
     invalidate() {
       localStorage.removeItem('parse-session-token');
-      this.trigger('invalidationSucceeded');
+      this.set('currentUser', null);
       window.location.reload();
     },
 
-    isAuthenticated() {
-      return !!this.get('currentUser');
+    toJSON() {
+      return {
+        currentUser: this.get('currentUser') && this.get('currentUser').toJSON(),
+        isAuthenticated: !!this.get('currentUser')
+      };
     }
 });
 export default Session;

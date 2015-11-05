@@ -2,10 +2,11 @@
 @import 'neat';
 @import '~normalize.css/normalize.css';
 @import '~font-awesome/scss/font-awesome';
-@import 'foundation';
+// @import 'foundation';
 
 body {
-    background-image: url(/images/sneaker_speaker-mock-5.jpg);
-    background-repeat: no-repeat;
-    background-size: contain;
+    // background-image: url(/public/images/sneaker_speaker-mock-5.jpg);
+    // background-repeat: no-repeat;
+    // background-size: contain;
+    background-color: RGBA(77, 77, 77, 1); /* main grey background-color */
 };

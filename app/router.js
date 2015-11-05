@@ -27,7 +27,7 @@ function requireNotAuth(nextState, replaceState) {
 ReactDOM.render((
   <Router>
     <Route path="/" component={App}>
-      <IndexRoute component={Index} onEnter={requireAuth} />
+      <IndexRoute component={Index} />
 
       <Route path="create" component={RecipeForm} onEnter={requireAuth} />
       <Route path="recipes/:id" component={ShowRecipe} onEnter={requireAuth} />

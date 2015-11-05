@@ -7,25 +7,25 @@ var Index = React.createClass({
 
   mixins: [BackboneMixin],
 
-  componentWillMount() {
-    store.fetchRecipes();
+  componentWillMount() {  /* fetche's sneaker data */
+    store.fetchSneakers();
   },
 
-  getModels() {
+  getModels() {  /* returns sneaker data */
     return {
-      recipes: store.getRecipes()
+      sneakers: store.getSneakers()
     }
   },
 
   render() {
-    var recipes = this.state.recipes;
-    // TODO: creator username is flashing
+    var sneakers = this.state.sneakers;
     return (
       <div>
         <h1>Index</h1>
         <ul>
-          {recipes.map((r) => {
-            return (<li key={r.objectId || Date.now()}><Link to={`/recipes/${r.objectId}`}>{r.name} - ({r.creator.username})</Link></li>);
+          {sneakers.map((s) => {
+              {/* Create a Sneaker component and ust <Sneaker sneaker={s} /> instead */}
+            return (<li key={s.objectId || Date.now()}><Link to={`/sneakers/${s.objectId}`}><img src={s.image} /> </Link><a href="http://sneakernews.com/release-dates/">{s.name}</a></li>);
           })}
         </ul>
       </div>

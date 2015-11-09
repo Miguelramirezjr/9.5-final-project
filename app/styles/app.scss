@@ -2,11 +2,136 @@
 @import 'neat';
 @import '~normalize.css/normalize.css';
 @import '~font-awesome/scss/font-awesome';
+
+$visual-grid: true !default;
+$visual-grid-color: #ff0000 !default;
 // @import 'foundation';
+
+$lightBlue: rgba(108, 248, 252, 1);
+$darkGray: rgba(26, 26, 26, 1);
+$lightgray: rgba(77, 77, 77, 1);
+$transitionMethod: 0.4s ease;
 
 body {
     // background-image: url(/public/images/sneaker_speaker-mock-5.jpg);
     // background-repeat: no-repeat;
     // background-size: contain;
-    background-color: RGBA(77, 77, 77, 1); /* main grey background-color */
+    background-color: $lightgray; /* main grey background-color */
 };
+
+// .release-dates-banner {
+//     width: 843px;
+//     height: 60px;
+//     color: $lightBlue;
+//     background-color: $darkGray;
+//     padding-left: 15px;
+//     margin-left: 530px;
+//     box-shadow: 8px 8px 8px #000000;
+//
+//     h1 {
+//         padding-top: 10px;
+//         font-family: 'Nunito', 'sans-serif';
+//         text-transform: uppercase;
+//     }
+// };
+
+.login {
+
+    &-container {
+        position: relative;
+    }
+}
+
+input {
+    outline: 0;
+    border: 0;
+    background: green;
+    opacity: .5;
+}
+
+// label {
+//     position: absolute;
+//     top: 10px;
+//     ft: 10px;
+//     z-index: 2;
+//     transition: transform 0.4s ease;
+//
+//     &.is-focused {
+//         top: -30px;
+//     }
+// }
+
+
+.Sneaker {
+    &-tile {
+        display: inline-block;
+        width: 20%;
+        margin-right: 2%;
+        vertical-align: top;
+    }
+
+    &-link {
+
+        &-img {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            width: 100%;
+            padding-top: 60%;
+            margin-left: 100px;
+            border-bottom: 5px solid $lightBlue;
+            @include transition(border-bottom-color $transitionMethod);
+
+            &-info {
+                display: inline-block;
+                margin-left: 100px;
+                margin-bottom: 20px;
+                width: 100%;
+                height: 84px;
+                padding: 1rem 20px;
+                text-align: center;
+                color: white;
+                background-color: $darkGray;
+
+                &:hover {
+                    color: darken($lightBlue,  40%);
+
+                }
+            }
+        }
+
+    }
+}
+
+.inv {
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: $lightBlue;
+
+    &:hover {
+        color: darken($lightBlue,  40%);
+    }
+
+}
+
+#header {
+    height: 100px;
+    width: 1375px;
+    margin: 20px auto;
+    border-bottom: 5px solid $lightBlue;
+    background-color: $darkGray;
+
+
+    h1 {
+        text-align: center;
+        line-height: 86px;
+        color: white;
+    }
+
+}
+
+.top-bar {
+    display: none;
+}

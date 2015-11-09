@@ -4,15 +4,19 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
+    "author": "Scotch",
     "babel-core": "^5.8.25",
     "babel-loader": "^5.3.2",
     "backbone": "^1.2.3",
     "bourbon": "^4.2.6",
     "bourbon-neat": "^1.7.2",
+    "cheerio": "latest",
     "css-loader": "^0.20.2",
+    "description": "Scrape le web.",
     "es6-promise": "^3.0.2",
     "eslint": "^1.7.3",
     "eslint-plugin-react": "^3.6.3",
+    "express": "latest",
     "file-loader": "^0.8.4",
     "filepicker-js": "^2.1.3",
     "font-awesome": "^4.4.0",
@@ -20,11 +24,14 @@
     "gulp": "^3.8.11",
     "gulp-gh-pages": "^0.5.2",
     "gulp-util": "^3.0.6",
+    "handlebars": "^4.0.3",
     "history": "^1.12.5",
     "html-webpack-plugin": "^1.6.2",
     "jquery": "^2.1.4",
     "jquery-param": "^0.2.0",
+    "main": "server.js",
     "modernizr-webpack-plugin": "^1.0.1",
+    "name": "node-web-scrape",
     "node-sass": "^3.3.3",
     "normalize.css": "^3.0.3",
     "open-browser-webpack-plugin": "0.0.1",
@@ -32,23 +39,17 @@
     "react-addons-update": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-hot-loader": "^1.3.0",
+    "react-inview": "0.0.4",
     "react-router": "^1.0.0-rc3",
+    "request": "latest",
     "resolve-url-loader": "^1.3.0",
     "sass-loader": "^3.0.0",
     "style-loader": "^0.13.0",
     "underscore": "^1.8.3",
     "url-loader": "^0.5.6",
-    "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.12.1",
-    "handlebars": "^4.0.3",
-    "name": "node-web-scrape",
     "version": "0.0.1",
-    "description": "Scrape le web.",
-    "main": "server.js",
-    "author": "Scotch",
-    "express": "latest",
-    "request": "latest",
-    "cheerio": "latest"
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
   },
   "name": "9.5-final-project",
   "description": "## How to get started",
@@ -69,5 +70,8 @@
   "bugs": {
     "url": "https://github.com/Miguelramirezjr/9.5-final-project/issues"
   },
-  "homepage": "https://github.com/Miguelramirezjr/9.5-final-project#readme"
+  "homepage": "https://github.com/Miguelramirezjr/9.5-final-project#readme",
+  "devDependencies": {
+    "jquery": "^2.1.4"
+  }
 }

@@ -1,5 +1,6 @@
 import Backbone from 'backbone';
 import _ from 'underscore';
+import $ from 'jquery';
 import store from '../store';
 
 const BackboneMixin = _.extend({}, Backbone.Events, {

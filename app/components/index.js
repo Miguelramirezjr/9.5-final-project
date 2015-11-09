@@ -5,33 +5,48 @@ import BackboneMixin from '../mixins/backbone';
 
 var Index = React.createClass({
 
-  mixins: [BackboneMixin],
+    mixins: [BackboneMixin],
 
-  componentWillMount() {  /* fetche's sneaker data */
-    store.fetchSneakers();
-  },
+    componentWillMount() {  /* fetch's sneaker data */
+        store.fetchSneakers();
+    },
 
-  getModels() {  /* returns sneaker data */
-    return {
-      sneakers: store.getSneakers()
+    getModels() {  /* returns sneaker data */
+        return {
+            sneakers: store.getSneakers()
+        }
+    },
+
+    render() {
+        var sneakers = this.state.sneakers;
+
+        return (
+            <div>
+                <div className="Sneaker">
+                    {sneakers.map((s) => {
+                        // console.log(s);
+                        var imgs = s.image
+                        var divStyle = {
+                            backgroundImage: 'url(' + imgs + ')'
+                        };
+
+                        return (
+                            <div className="Sneaker-tile" key={s.objectId || Date.now()}>
+                                <Link className="Sneaker-link" to={`/sneakers/${s.objectId}`}>
+                                    <div className="Sneaker-link-img" style={divStyle}></div>
+                                    <section className="Sneaker-link-img-info">
+                                        <h3 className="Sneaker-link-img-name inv">{s.name}</h3>
+                                        <h5 className="Sneaker-link-img-name inv">Realease-Date: {s.date}</h5>
+                                        <h5 className="Sneaker-link-img-name inv">Price: {s.price}</h5>
+                                    </section>
+                                </Link>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
     }
-  },
-
-  render() {
-    var sneakers = this.state.sneakers;
-    return (
-      <div>
-        <h1>Index</h1>
-        <ul>
-          {sneakers.map((s) => {
-              {/* Create a Sneaker component and ust <Sneaker sneaker={s} /> instead */}
-            return (<li key={s.objectId || Date.now()}><Link to={`/sneakers/${s.objectId}`}><img src={s.image} /> </Link><a href="http://sneakernews.com/release-dates/">{s.name}</a></li>);
-          })}
-        </ul>
-      </div>
-    );
-  }
-
 });
 
 export default Index;

@@ -36,19 +36,33 @@ const Login = React.createClass({
     })
   },
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <h1>Login</h1>
-        <input ref="email" placeholder="email" />
-        <input type="password" ref="password" placeholder="password" />
-        <button type="submit">Login</button>
-        {this.state.error && (
-          <p>Bad login information</p>
-        )}
-      </form>
-    )
-  }
-})
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <h1>Login</h1>
+                    <div className="login">
+                        <div className="login-email">
+                            <input ref="email" placeholder="email" />
+                            <label>Email</label>
+                        </div>
+                        <div className="login-password">
+                            <input ref="password" placeholder="password" />
+                            <label>Password</label>
+                        </div>
+                        <div className="login-login">
+                            <button type="submit">Login</button>
+                        </div>
+                        <div>
+                            {this.state.error && (
+                                <p>Bad login information</p>
+                            )};
+                        </div>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+});
 
 export default Login;

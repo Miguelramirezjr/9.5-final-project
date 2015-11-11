@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import React from 'react';
 import store from '../store';
 import { Link } from 'react-router';
@@ -23,10 +24,10 @@ var Index = React.createClass({
         return (
             <div>
                 <div className="Sneaker">
-                    {sneakers.map((s) => {
+                        {sneakers.map((s) => {
                         // console.log(s);
-                        var imgs = s.image
-                        var divStyle = {
+                            var imgs = s.image
+                            var divStyle = {
                             backgroundImage: 'url(' + imgs + ')'
                         };
 
@@ -42,11 +43,14 @@ var Index = React.createClass({
                                 </Link>
                             </div>
                         );
-                    })}
+                        })}
+
                 </div>
             </div>
         );
     }
+
 });
+
 
 export default Index;

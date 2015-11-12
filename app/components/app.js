@@ -38,11 +38,14 @@ var App = React.createClass({
          </ul>
 
           <section className="top-bar-section">
-            <ul className="left">
-              <li><Link to="/create">Create</Link></li>
-            </ul>
+
 
             <ul className="right">
+                {!loggedIn &&
+                    <li>
+                        <Link to="/login">Login</Link>
+                    </li>
+                }
               {loggedIn &&
               <li className="has-dropdown">
                 <a>{username}</a>

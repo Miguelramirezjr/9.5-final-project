@@ -3,10 +3,10 @@ import Comment from './comment';
 var CommentsCollection = Backbone.Collection.extend({
   model: Comment,
   url() {
-    return "https://api.parse.com/1/classes/Comment?include=creator,recipe&where=" + JSON.stringify({
+    return "https://api.parse.com/1/classes/Comment?include=creator,sneaker&where=" + JSON.stringify({
       recipe: {
         __type: "Pointer",
-        className: "Recipe",
+        className: "Sneaker",
         objectId: this.recipeId
       }
     });

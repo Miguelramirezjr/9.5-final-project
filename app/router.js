@@ -30,7 +30,7 @@ ReactDOM.render((
       <IndexRoute component={Index} />
 
       <Route path="create" component={RecipeForm} onEnter={requireAuth} />
-      <Route path="recipes/:id" component={ShowRecipe} onEnter={requireAuth} />
+      <Route path="sneakers/:id" component={ShowRecipe} onEnter={requireAuth} />
 
       <Route path="login" component={Login} onEnter={requireNotAuth} />
       <Route path="signup" component={Signup} onEnter={requireNotAuth} />

@@ -8,11 +8,13 @@ import SneakersCollection from './models/sneakers-collection';
 import CommentsCollection from './models/comments-collection';
 import User from './models/user';
 import UsersCollection from './models/users-collection';
+import FavoritesCollection from './models/favorites-collection';
 
 let session = new Session();
 let recipes = new RecipesCollection();
 let sneakers = new SneakersCollection();
 let users = new UsersCollection();
+let favorites = new FavoritesCollection();
 
 let commentsCache = {};
 
@@ -23,6 +25,34 @@ const Store = _.extend({}, Backbone.Events, {
     this.listenTo(sneakers, 'add change remove', this.trigger.bind(this, 'change'));
     this.listenTo(users, 'add change remove', this.trigger.bind(this, 'change'));
     this.listenTo(session, 'change', this.trigger.bind(this, 'change'));
+    this.listenTo(favorites, 'add change remove', this.trigger.bind(this, 'change'));
+  },
+
+  getFavorites() {
+    return favorites.toJSON();
+  },
+
+  fetchFavorites() {
+    return favorites.fetch();
+  },
+
+  favoriteSneaker(sneaker) {
+    return new Promise((resolve, reject) => {
+      favorites.create({
+        sneaker: {objectId: sneaker.objectId},
+        sneakerInfo: sneaker,
+        name: sneaker.name,
+        image: sneaker.image
+      }, {wait: true, success: resolve, error: reject});
+    });
+  },
+
+  unfavoriteRecipe(recipe) {
+    return new Promise((resolve, reject) => {
+      return favorites.find((f) => {
+        return f.get('recipe').objectId === recipe.objectId;
+      }).destroy({success: resolve, error: reject});
+    });
   },
 
   getRecipes() {
@@ -127,6 +157,6 @@ const Store = _.extend({}, Backbone.Events, {
 });
 
 Store.initialize();
-window.Store = Store;
+// window.Store = Store;
 
 export default Store;

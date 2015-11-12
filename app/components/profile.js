@@ -2,6 +2,8 @@ import React from 'react';
 import BackboneMixin from '../mixins/backbone';
 import store from '../store';
 import update from 'react-addons-update';
+import filepicker from 'filepicker-js';
+import Favorites from './favorites';
 
 const Profile = React.createClass({
 
@@ -66,13 +68,15 @@ const Profile = React.createClass({
         </form>
       );
     } else {
-      return (
-        <div>
-          <h1>{user.name}</h1>
-          {user.avatar && <div><img src={user.avatar.url} alt="Profile picture" /></div>}
-          <button onClick={this.handleEdit}>Edit</button>
-        </div>
-      );
+        return (
+          <div>
+            <h1>{user.name}</h1>
+            {user.avatar && <div><img src={user.avatar.url} alt="Profile picture" /></div>}
+            <button onClick={this.handleEdit}>Edit</button>
+
+            <Favorites />
+          </div>
+        );
     }
   }
 });

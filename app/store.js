@@ -47,10 +47,10 @@ const Store = _.extend({}, Backbone.Events, {
     });
   },
 
-  unfavoriteRecipe(recipe) {
+  unfavoriteSneaker(sneaker) {
     return new Promise((resolve, reject) => {
       return favorites.find((f) => {
-        return f.get('recipe').objectId === recipe.objectId;
+        return f.get('sneaker').objectId === sneaker.objectId;
       }).destroy({success: resolve, error: reject});
     });
   },

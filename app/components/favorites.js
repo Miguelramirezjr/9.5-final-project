@@ -18,14 +18,15 @@ const Favorites = React.createClass({
   render() {
       console.log(this.state.favorites);
     return (
-      <div>
-        <h1>Favorites</h1>
-        {this.state.favorites.map((f) =>
-            <div key={f.objectId}>
-                {console.log(f)}
-                <h2>{f.name}</h2>
-                <img src={f.image} alt="" />
-            </div> )}            
+      <div className ="background-fav">
+        <div className ="fav-div">
+          <h1>Favorites</h1>
+          {this.state.favorites.map((f) =>
+              <div className="fav-div-info" key={f.objectId}>
+                  {console.log(f)}
+                  <img src={f.image} alt="" /><h2>{f.name}</h2>
+              </div> )}
+        </div>
       </div>
     );
   }

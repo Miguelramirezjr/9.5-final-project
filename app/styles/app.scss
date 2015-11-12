@@ -4,10 +4,6 @@
 @import '~normalize.css/normalize.css';
 @import '~font-awesome/scss/font-awesome';
 
-$max-width: 1024px !global;
-$mobile: new-breakpoint(max-width 640px);
-$tablet: new-breakpoint(max-width 1024px min-width 641px);
-
 * {
   box-sizing: border-box;
 }
@@ -44,11 +40,10 @@ body {
             background-size: 100%;
             width: 100%;
             padding-top: 60%;
-            border-bottom: 5px solid $lightBlue;
+            border-bottom: 10px solid $lightBlue;
 
             &-info {
                 display: inline-block;
-                // margin-bottom: 20px;
                 width: 100%;
                 padding: 1rem 20px;
                 text-align: center;
@@ -76,37 +71,9 @@ body {
     }
 }
 
-// @media screen and (max-width: 500px) { /* mobile view */
-//     .Sneaker {
-//         width: 100%;
-//         margin: 0 auto;
-//         min-width: 0;
-//
-//         .Sneaker-tile{
-//             display: block;
-//             margin-left: 70px;
-//             @include span-columns(9);
-//
-//             #header {
-//                 flex-direction: row-reverse;
-//                 order: 2;
-//                 flex: 2;
-//             }
-//
-//             h1 {
-//                 order: 1;
-//                 // width: 800px; /* moves header to left for mobile views */
-//                 padding-right: 300px
-//                 float:left;
-//             }
-//
-//         }
-//     }
-// }
-
 #header {
     height: 100px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     border-bottom: 5px solid $lightBlue;
     background-color: $darkGray;
 
@@ -158,10 +125,7 @@ body {
         color: $lightBlue;
         text-decoration: none;
         text-transform: uppercase;
-
     }
-
-
 }
 
 .fav-button {
@@ -199,4 +163,45 @@ label {
     &.is-focused {
         top: -30px;
     }
+}
+
+.fav-div h1{
+    color: $lightBlue;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Josefin Sans', 'sans-serif';
+    font-size: 3rem;
+    border-radius: 25px;
+    background: #000000;
+    padding: 20px;
+    width: 300px;
+    height: 100px;
+    margin-left: 550px;
+    margin-bottom: 60px;
+
+}
+
+.fav-div-info {
+    padding-left: 540px;
+}
+
+.fav-div-info img{
+
+    background: darken($lightBlue,  40%);
+    padding: 6px;
+    align-self: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    margin: 0;
+    margin-bottom: 15px;
+
+}
+
+.fav-div-info h2{
+    color: $lightBlue;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', 'sans-serif';
+    font-size: 19px;
+    text-align: inherit;
 }
